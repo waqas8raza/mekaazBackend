@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Mekaaz Admin</title>
+
+    <link rel="shortcut icon" href="{% static 'assets/img/favicon.ico' %}">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/jquery-ui/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/metisMenu/metisMenu.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/mCustomScrollbar/jquery.mCustomScrollbar.min.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
+
+</head>
+
+<body class="bg-white">
+    <div class="app">
+        <div class="app-wrap">
+            <div class="loader">
+                <div class="h-100 d-flex justify-content-center">
+                    <div class="align-self-center">
+                        <img src="{% static 'assets/img/loader/loader.svg' %}" alt="loader">
+                    </div>
+                </div>
+            </div>
+            <div class="app-contant">
+                    <div class="container">
+                        <div class="row justify-content-center align-items-center h-100-vh">
+                            <div class="col-lg-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="login pt-4">
+                                        <h1 class="mb-2">Mekaaz</h1>
+                                        <p>Welcome back, please login to your Panel.</p>
+                                        <form action="{% url 'admin-login' %}" method="POST" class="mt-3 mt-sm-5">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Email*</label>
+                                                        <input type="text" name="email" class="form-control" placeholder="Email" required />
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Password*</label>
+                                                        <input type="password" name="password" class="form-control" placeholder="Password" required />
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mt-3">
+                                                    <button type="submit" class="btn btn-light text-uppercase">Sign In</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <img class="img-fluid" src="{% static 'assets/img/bg/login.svg' %}" alt="">
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{% static 'assets/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/metisMenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'assets/js/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/js/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+</body>
+</html>
