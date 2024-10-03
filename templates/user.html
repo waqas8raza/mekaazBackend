@@ -1,0 +1,98 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="app-main" id="main">
+    <div class="container-fluid">
+        <!-- Patient Table -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-statistics">
+                    <div class="card-header">
+                        <div class="card-heading">
+                            <h5 class="card-title">Patients (Total: {{ total_patients }})</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table mb-0 table-borderless table-border-3">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>Gender</th>
+                                        <th>Blood Group</th>
+                                        <th>Date of Birth</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for patient in patients %}
+                                    <tr>
+                                        <td>{{ patient.name }}</td>
+                                        <td>{{ patient.email }}</td>
+                                        <td>{{ patient.phoneNumber }}</td>
+                                        <td>{{ patient.gender }}</td>
+                                        <td>{{ patient.bloodGroup }}</td>
+                                        <td>{{ patient.dob|date:"M d, Y" }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6">No patients found.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caretaker Table -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="card card-statistics">
+                    <div class="card-header">
+                        <div class="card-heading">
+                            <h5 class="card-title">Caretakers (Total: {{ total_caretakers }})</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table mb-0 table-borderless table-border-3">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>Gender</th>
+                                        <th>Relationship</th>
+                                        <th>Average Time Spent</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for caretaker in caretakers %}
+                                    <tr>
+                                        <td>{{ caretaker.name }}</td>
+                                        <td>{{ caretaker.email }}</td>
+                                        <td>{{ caretaker.phoneNumber }}</td>
+                                        <td>{{ caretaker.gender }}</td>
+                                        <td>{{ caretaker.relationWithPatient }}</td>
+                                        <td>{{ caretaker.average_time }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6">No caretakers found.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

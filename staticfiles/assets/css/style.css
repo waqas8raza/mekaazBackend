@@ -1,33 +1,20 @@
-/*
-Template Name: Arioxa - Bootstrap 4 Admin Dashboard Template
-Author: Potenza Global Solutions
-File: Main Style
-*/
-/* example taken from https://stackoverflow.com/a/48976550/3466464 */
-/* import what we need to override */
-/* set the overriding variables */
-/* override the !default vars with the values we set above */
-/*!
- * Bootstrap v4.5.2 (https://getbootstrap.com/)
- * Copyright 2011-2020 The Bootstrap Authors
- * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
-  --blue: #007bff;
-  --indigo: #6610f2;
-  --purple: #6f42c1;
-  --pink: #e83e8c;
-  --red: #dc3545;
-  --orange: #fd7e14;
-  --yellow: #ffc107;
-  --green: #28a745;
-  --teal: #20c997;
-  --cyan: #17a2b8;
-  --white: #fff;
-  --gray: #6c757d;
-  --gray-dark: #343a40;
-  --primary: #007bff;
+  --blue: #FF86705D;
+  --indigo: #FFFFFCF9;
+  --purple: #FFEFE7DD;
+  --pink: #FFD3CBC4;
+  --red: #FF121212;
+  --orange: #FFFFFCF9;
+  --yellow: #FF92979D;
+  --green: #FFE1E4E8;
+  --teal: #FFD90000;
+  --cyan: #FF92979D;
+  --white: #FF404040;
+  --gray: #FF86705d;
+  --gray-dark: #FFD3CBC4;
+
+  
+ 
   --secondary: #6c757d;
   --success: #28a745;
   --info: #17a2b8;
@@ -13844,7 +13831,7 @@ ol.breadcrumb {
     -ms-flex-preferred-size: auto !important;
     flex-basis: auto !important;
     margin-bottom: auto;
-    background: linear-gradient(-154deg, #064CDB 8%, #012c84 90%);
+    background: #FF86705D;
     height: 100%;
     overflow: hidden; }
     .app-navbar .sidebar-nav ul.metismenu {
@@ -14192,7 +14179,7 @@ body.car-dealer-dashboard .app-main .container-fluid, body.car-dealer-dashboard 
 .car-dealer-dashboard:before {
   position: absolute;
   content: "";
-  background: linear-gradient(-154deg, #064CDB 8%, #012c84 90%);
+  background: #FF86705D;
   width: 100%;
   height: 370px;
   z-index: -1;

@@ -22,6 +22,7 @@ urlpatterns = [
     path('',views.admin_login,name='admin-login'),
     path('admin/', admin.site.urls),
     path('api/', include('User.urls')),
+    path('api/', include('Subscription.urls')),
     path('api/auth/', include('dj_rest_auth.urls')),
     path('api/auth/', include('dj_rest_auth.urls')),
 

@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Mekaaz Admin</title>
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/img/logo.png' %}">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/jquery-ui/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/metisMenu/metisMenu.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/mCustomScrollbar/jquery.mCustomScrollbar.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/jvectormap/jqvmap.min.css' %}" />
+
+    <!-- Template Style -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
+
+</head>
+
+<body>
+    <!-- begin app -->
+    <div class="app">
+        <!-- begin app-wrap -->
+        <div class="app-wrap">
+            <!-- begin pre-loader -->
+            <div class="loader">
+                <div class="h-100 d-flex justify-content-center">
+                    <div class="align-self-center">
+                        <img src="{% static 'assets/img/loader/loader.svg' %}" alt="loader">
+                    </div>
+                </div>
+            </div>
+            <!-- end pre-loader -->
+            <!-- begin app-header -->
+            <header class="app-header top-bar">
+                <!-- begin navbar -->
+                <nav class="navbar navbar-expand-lg">
+                    <div class="navbar-header align-items-center d-lg-none d-block">
+                        <a href="javascript:void:(0)" class="mobile-toggle"><i class="ti ti-align-right"></i></a>
+                        <a class="navbar-brand" href="index.html">
+                            <img src="{% static 'assets/img/logo.png' %}" class="img-fluid logo-desktop" alt="logo" />
+                        </a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="ti ti-align-left"></i>
+                    </button>
+                    <!-- end navbar-header -->
+                    <!-- begin navigation -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="navigation d-flex">
+                            <ul class="navbar-nav nav-left">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0)" class="nav-link sidebar-toggle">
+                                        <i class="ti ti-align-right"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item full-screen d-none d-lg-block" id="btnFullscreen">
+                                    <a href="javascript:void(0)" class="nav-link expand">
+                                        <i class="icon-size-fullscreen"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="search-box ml-auto mr-3 d-none d-xl-block">
+                                <form>
+                                    <div class="form-group">
+                                        <a href="#"> <i class="ti ti-search magnifier"></i></a>
+                                        <input type="text" class="form-control" placeholder="Search Here"
+                                            id="autocomplete-ajax">
+                                    </div>
+                                </form>
+                            </div>
+                            <ul class="navbar-nav nav-right ml-auto ml-xl-0">
+
+                                <li class="nav-item dropdown user-profile">
+                                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="d-flex align-items-center text-left">
+                                            <div class="mr-2">
+                                                <h6 class="mb-0 text-dark">{{ user.name }}</h6>
+
+                                            </div>
+                                            <div class="avatar position-relative">
+                                                <i class="nav-icon ti ti-user text-success" style="font-size:20px"></i>
+                                                <!--<span class="bg-success user-status"></span>-->
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
+                                        <div class="px-4 py-3 bg-holder bg-overlay-primary-70"
+                                            style="background-image: url(assets/img/blog/05.jpg);">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="mr-1">
+                                                    <h5 class="text-white mb-0">{{ user.name }}</h5>
+                                                    <small class="text-white">{{ user.email }}</small>
+                                                </div>
+                                                <a href="{% url 'admin-logout' %}" class="text-white font-20 tooltip-wrapper"
+                                                    data-toggle="tooltip" data-placement="top" title=""
+                                                    data-original-title="Logout"> <i class="zmdi zmdi-power"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- end navigation -->
+                </nav>
+                <!-- end navbar -->
+            </header>
+            <!-- end app-header -->
+            <!-- begin app-container -->
+            <div class="app-container">
+                <!-- begin app-nabar -->
+                <aside class="app-navbar">
+                    <!-- begin navbar-header -->
+                    <div class="navbar-header align-items-center d-lg-block d-none" style="background:#ff86705D">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid w-50">
+                            <h6 class="text-dark">Meekaz</h6>
+                        </a>
+                    </div>
+                    <!-- begin sidebar-nav -->
+                    <div class="sidebar-nav scrollbar scroll_light pt-5">
+                        <div class="d-flex align-items-center text-left px-2 mb-2 user-setting">
+                            <div class="position-relative">
+                                <div class="avatar">
+                                    <i class="nav-icon ti ti-user text-dark" style="font-size:20px"></i>
+                                    <!--<img class="avatar-img rounded-circle" src="{% static 'assets/img/avatar/02.jpg' %}"-->
+                                    <!--    alt="avatar-img">-->
+                                    <!--<span class="bg-success user-status"></span>-->
+                                </div>
+                            </div>
+                            <div class="ml-2">
+                                <h6 class="mb-0 text-dark">{{ user.name }}</h6>
+
+                            </div>
+                            <!--<div class="ml-auto user-setting">-->
+                            <!--    <a href="#"> <i class="fe fe-settings"></i> </a>-->
+                            <!--</div>-->
+                        </div>
+                        <ul class="metismenu" id="sidebarNav">
+                            <li class="nav-static-title text-dark">Personal</li>
+                            <li class="active">
+                                <a class="" href="{% url 'admin-dashboard' %}" aria-expanded="false">
+                                    <i class="nav-icon fa fa-solid fa-home text-dark" style="font-size:20px"></i>
+                                    <span class="nav-title text-dark">Dashboards</span>
+                                    <!--<span class="nav-label label label-danger">9</span>-->
+                                </a>
+
+                            </li>
+                            <li><a href="{% url 'admin-user' %}" aria-expanded="false"><i
+                                        class="nav-icon fa fa-solid fa-user text-dark" style="font-size:20px"></i><span class="nav-title text-dark">User</span></a> </li>
+
+                            <li><a href="{% url 'admin-subscription' %}" aria-expanded="false"><i
+                                        class="nav-icon fa fa-solid fa-envelope text-dark" style="font-size:20px"></i><span
+                                        class="nav-title text-dark">Subscription</span></a> </li>
+                        </ul>
+                    </div>
+                    <!-- end sidebar-nav -->
+                </aside>
+
+                {% block content %}-->
+                    <!-- Content of individual pages will go here -->
+                {% endblock %}
+
+
+                <!-- begin footer -->
+        <footer class="footer">
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-left">
+                    <p>&copy; Copyright 2024. All rights reserved.</p>
+                </div>
+                <div class="col  col-sm-6 ml-sm-auto text-center text-sm-right">
+                    <p>Developed by Maxcore Technologies</p>
+                </div>
+            </div>
+        </footer>
+        <!-- end footer -->
+    </div>
+    <!-- end app -->
+
+
+    <script src="{% static 'assets/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/metisMenu/metisMenu.min.js' %}"></script>
+    <script src="{% static 'assets/js/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/js/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script src="{% static 'assets/js/jvectormap/jquery.vmap.min.js' %}"></script>
+    <script src="{% static 'assets/js/jvectormap/jquery.vmap.world.js' %}"></script>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+</body>
+</html>

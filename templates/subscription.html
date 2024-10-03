@@ -1,0 +1,152 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="app-main" id="main">
+    <div class="container-fluid">
+        <!-- Subscription Plans Table -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-statistics">
+                    <div class="card-header">
+                        <div class="card-heading">
+                            <h5 class="card-title">Subscription Plans</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table mb-0 table-borderless table-border-3">
+                                <thead>
+                                    <tr>
+                                        <th>Plan Name</th>
+                                        <th>Price</th>
+                                        <th>Description</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for plan in plans %}
+                                    <tr>
+                                        <td>{{ plan.name }}</td>
+                                        <td>${{ plan.price }}</td>
+                                        <td>{{ plan.description }}</td>
+                                        <td>
+                                            <!-- Edit and Delete Buttons -->
+                                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editPlanModal{{ plan.id }}">Edit</button>
+                                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deletePlanModal{{ plan.id }}">Delete</button>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Edit Plan Modal -->
+                                    <div class="modal fade" id="editPlanModal{{ plan.id }}" tabindex="-1" role="dialog" aria-labelledby="editPlanModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editPlanModalLabel">Edit Subscription Plan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form method="POST" action="{% url 'edit_plan' plan.id %}">
+                                                    {% csrf_token %}
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="name">Plan Name</label>
+                                                            <input type="text" class="form-control" name="name" value="{{ plan.name }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="price">Price</label>
+                                                            <input type="number" class="form-control" name="price" value="{{ plan.price }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="description">Description</label>
+                                                            <textarea class="form-control" name="description">{{ plan.description }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Delete Plan Modal -->
+                                    <div class="modal fade" id="deletePlanModal{{ plan.id }}" tabindex="-1" role="dialog" aria-labelledby="deletePlanModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deletePlanModalLabel">Delete Subscription Plan</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete this subscription plan?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                    <a href="{% url 'delete_plan' plan.id %}" class="btn btn-danger">Yes, Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Subscriptions Table -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="card card-statistics">
+                    <div class="card-header">
+                        <div class="card-heading">
+                            <h5 class="card-title">User Subscribed</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table mb-0 table-borderless table-border-3">
+                                <thead>
+                                    <tr>
+                                        <th>Plan Name</th>
+                                        <th>Purchase Date</th>
+                                        <th>Expiry Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for subscription in user_subscriptions %}
+                                    <tr>
+                                        <td>{{ subscription.plan.name }}</td>
+                                        <td>{{ subscription.purchase_date|date:"M d, Y" }}</td>
+                                        <td>{{ subscription.expiry_date|date:"M d, Y" }}</td>
+                                        <td>
+                                            {% if subscription.is_active %}
+                                                <label class="badge badge-success">Active</label>
+                                            {% else %}
+                                                <label class="badge badge-danger">Expired</label>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="4">No subscriptions found.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

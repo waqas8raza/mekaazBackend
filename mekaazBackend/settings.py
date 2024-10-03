@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-rlyk=(fryzfd3%z-)9lbka#htx15b&7wufh%s*x_1r*(9y#@y6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['mekaaz.pythonanywhere.com']
 
 
 # Application definition
@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.apple',
     'social_django',
+    'firebase_admin',
+    'Subscription',
     'User',
 ]
 
@@ -71,7 +73,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        
+
     ),
     'DEFAULT_PERMISSION_CLASSES': (
  'rest_framework.permissions.IsAuthenticated',
@@ -168,9 +170,12 @@ USE_TZ = True
 
 STATIC_URL = '/staticfiles/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles'),
-]
+# Set the STATIC_ROOT directory
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'staticfiles'),
+# ]
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '')

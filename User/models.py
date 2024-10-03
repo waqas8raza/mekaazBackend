@@ -7,7 +7,7 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
-        
+
         # Create the user instance
         user = self.model(email=email, **extra_fields)
         user.set_password(password)  # Set the password with hashing
@@ -22,9 +22,9 @@ class UserManager(BaseUserManager):
 
         return self.create_user(email, password, **extra_fields)
 
-class User(AbstractBaseUser, PermissionsMixin):  # Inherit from PermissionsMixin
-    email = models.EmailField(unique=True)
-    phoneNumber = models.CharField(max_length=15, blank=True, null=True)
+class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True, blank=True, null=True)
+    phoneNumber = models.CharField(max_length=15, unique=True, blank=True, null=True)
 
     # Personal Information
     role = models.CharField(max_length=10, choices=[('patient', 'Patient'), ('caretaker', 'Caretaker')], blank=True, null=True)
@@ -32,15 +32,15 @@ class User(AbstractBaseUser, PermissionsMixin):  # Inherit from PermissionsMixin
     bloodGroup = models.CharField(max_length=10, blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')], blank=True, null=True)
-    disease = models.CharField(max_length=100, blank=True, null=True)
-    diseaseStartDate = models.DateField(blank=True, null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
+    relationWithPatient = models.CharField(max_length=20, blank=True, null=True)
     profileComplete = models.BooleanField(default=False)
 
     phoneVerified = models.BooleanField(default=False)
     verificationCode = models.CharField(max_length=6, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)  # Add this field for superuser support
+    is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -48,11 +48,11 @@ class User(AbstractBaseUser, PermissionsMixin):  # Inherit from PermissionsMixin
     objects = UserManager()
 
     def __str__(self):
-        return self.email
+        return self.email if self.email else (self.phoneNumber if self.phoneNumber else "Unnamed User")
 
     def generate_verification_code(self):
-        """Generate a random 6-digit verification code."""
-        self.verificationCode = str(random.randint(100000, 999999))
+        """Generate a random 4-digit verification code."""
+        self.verificationCode = str(random.randint(1000, 9999))
         self.save()
 
     def verify_code(self, code):
@@ -63,3 +63,11 @@ class User(AbstractBaseUser, PermissionsMixin):  # Inherit from PermissionsMixin
             self.save()
             return True
         return False
+
+class Disease(models.Model):
+    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='diseases')
+    name = models.CharField(max_length=100)
+    start_date = models.DateField()
+
+    def __str__(self):
+        return self.name

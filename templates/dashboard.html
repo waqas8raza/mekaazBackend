@@ -1,17 +1,145 @@
+{% extends 'main.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" />
-</head>
-<body class="bg-light">
-    <div class="container">
-        <h1>Welcome to the Dashboard, {{ user.name }}!</h1>
-        <p>This is your dashboard where you can manage your projects.</p>
-        <!-- Add more dashboard features here -->
+
+{% block content %}
+<div class="app-main" id="main">
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-lg-12">
+                <h3 class="mb-1">Welcome to Mekaaz Admin Dashboard</h3>
+            </div>
+        </div>
+
+        <!-- Row for Total Counts -->
+        <div class="row mb-4">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Users</h5>
+                        <h2>{{ total_users }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Patients</h5>
+                        <h2>{{ total_patients }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Caretakers</h5>
+                        <h2>{{ total_caretakers }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Charts Row -->
+        <div class="row">
+            <!-- Circular Chart -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Plan Purchases (Circular Chart)</h5>
+                        <div id="planCircularChart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bar Chart for Plan Purchases -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Plan Purchases (Bar Chart)</h5>
+                        <div id="planBarChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings Chart -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Earnings</h5>
+                        <div id="earningsChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+<!-- Add ApexCharts Library -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+    // Circular Chart for Plan Purchases
+    var optionsCircular = {
+        chart: {
+            type: 'donut',
+            height: 350,
+        },
+        series: {{ plan_counts|safe }},
+        labels: {{ plan_names|safe }},
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 300
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var planCircularChart = new ApexCharts(document.querySelector("#planCircularChart"), optionsCircular);
+    planCircularChart.render();
+
+    // Bar Chart for Plan Purchases
+    var optionsBar = {
+        chart: {
+            type: 'bar',
+            height: 350,
+        },
+        series: [{
+            name: 'Plan Purchases',
+            data: {{ plan_counts|safe }}
+        }],
+        xaxis: {
+            categories: {{ plan_names|safe }},
+        }
+    };
+
+    var planBarChart = new ApexCharts(document.querySelector("#planBarChart"), optionsBar);
+    planBarChart.render();
+
+    // Total Earnings Line Chart
+    var optionsEarnings = {
+        chart: {
+            type: 'line',
+            height: 350,
+        },
+        series: [{
+            name: 'Total Earnings',
+            data: [{{ total_earnings }}]  // You can replace this with more dynamic earning data over time
+        }],
+        stroke: {
+            curve: 'smooth'
+        },
+        xaxis: {
+            categories: ['Total Earnings'],
+        }
+    };
+
+    var earningsChart = new ApexCharts(document.querySelector("#earningsChart"), optionsEarnings);
+    earningsChart.render();
+</script>
+{% endblock %}
